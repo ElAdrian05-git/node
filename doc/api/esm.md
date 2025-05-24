@@ -351,7 +351,9 @@ added:
   - v21.2.0
   - v20.11.0
 changes:
-  - version: v24.0.0
+  - version:
+     - v24.0.0
+     - v22.16.0
     pr-url: https://github.com/nodejs/node/pull/58011
     description: This property is no longer experimental.
 -->
@@ -369,7 +371,9 @@ added:
   - v21.2.0
   - v20.11.0
 changes:
-  - version: v24.0.0
+  - version:
+     - v24.0.0
+     - v22.16.0
     pr-url: https://github.com/nodejs/node/pull/58011
     description: This property is no longer experimental.
 -->
@@ -713,13 +717,18 @@ into a new instance of `library.wasm`:
 ```js
 import source libraryModule from './library.wasm';
 
-const instance1 = await WebAssembly.instantiate(libraryModule, {
-  custom: import1,
-});
+const instance1 = await WebAssembly.instantiate(libraryModule, importObject1);
 
-const instance2 = await WebAssembly.instantiate(libraryModule, {
-  custom: import2,
-});
+const instance2 = await WebAssembly.instantiate(libraryModule, importObject2);
+```
+
+In addition to the static source phase, there is also a dynamic variant of the
+source phase via the `import.source` dynamic phase import syntax:
+
+```js
+const dynamicLibrary = await import.source('./library.wasm');
+
+const instance = await WebAssembly.instantiate(dynamicLibrary, importObject);
 ```
 
 <i id="esm_experimental_top_level_await"></i>
